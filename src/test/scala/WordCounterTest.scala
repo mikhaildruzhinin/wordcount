@@ -10,10 +10,10 @@ class WordCounterTest extends AnyFunSuite {
     assert(result == expectedResult)
   }
 
-  test("parse input text with cyrillic letters") {
-    val text: String = "Эт#о тест.? $Это ещё; одно. предложение%…"
+  test("parse input text with cyrillic letters and numbers") {
+    val text: String = "Эт#о тест.? $Это ещё; одно. предложение% 33…"
     val result = WordCounter.parseInputText(text)
-    val expectedResult = Success(List("это", "тест", "это", "ещё", "одно", "предложение"))
+    val expectedResult = Success(List("это", "тест", "это", "ещё", "одно", "предложение", "33"))
     assert(result == expectedResult)
   }
 

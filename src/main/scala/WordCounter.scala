@@ -8,7 +8,7 @@ object WordCounter {
       .toLowerCase
       .split(" ")
       .toList
-      .map(_.replaceAll("""[^\p{L}\s\d]""", ""))
+      .map(_.replaceAll("""[^\p{L}\d]""", ""))
       .filter(_.nonEmpty)
   }
 
