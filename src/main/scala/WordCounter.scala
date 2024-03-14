@@ -1,10 +1,10 @@
-class WordCounter {
-  def parseInputText(text: String): Seq[String] = text.split(" ")
+object WordCounter {
+  def parseInputText(text: String): Seq[String] = text
+    .toLowerCase
+    .split(" ")
     .toList
-    .map(
-      _.toLowerCase
-        .replaceAll("""\p{Punct}""", "")
-    )
+    .map(_.replaceAll("""\W""", ""))
+    .filter(_.nonEmpty)
 
   def countCurrentWord(accumulator: Map[String, Int], word: String): Map[String, Int] = {
     val incrementCounter: Int => Map[String, Int] = (value: Int) => accumulator + (word -> (value + 1))
@@ -18,8 +18,4 @@ class WordCounter {
 
     parsedWords.foldLeft(Map.empty[String, Int])((acc, word) => countCurrentWord(acc, word))
   }
-}
-
-object WordCounter {
-  def apply(): WordCounter = new WordCounter()
 }
