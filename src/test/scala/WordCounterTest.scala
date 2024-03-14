@@ -1,11 +1,26 @@
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.util.Success
+
 class WordCounterTest extends AnyFunSuite {
   test("parse input text") {
-    val text: String = "This! is? $ a test;.%…"
+    val text: String = "Th#is! is? $ a test;.%…"
     val result = WordCounter.parseInputText(text)
-    val expectedResult = List("this", "is", "a", "test")
+    val expectedResult = Success(List("this", "is", "a", "test"))
     assert(result == expectedResult)
+  }
+
+  test("parse input text with cyrillic letters") {
+    val text: String = "Эт#о тест.? $Это ещё; одно. предложение%…"
+    val result = WordCounter.parseInputText(text)
+    val expectedResult = Success(List("это", "тест", "это", "ещё", "одно", "предложение"))
+    assert(result == expectedResult)
+  }
+
+  test("parse empty text") {
+    val text: String = ""
+    val result = WordCounter.parseInputText(text)
+    assertThrows[RuntimeException](result.get)
   }
 
   test("add new word occurrence") {
@@ -23,8 +38,8 @@ class WordCounterTest extends AnyFunSuite {
   }
 
   test("count") {
-    val text: String = "This is a test. This is another sentence."
-    val result = WordCounter.count(text)
+    val parsedWords: Seq[String] = List("this", "is", "a", "test", "this", "is", "another", "sentence")
+    val result = WordCounter.count(parsedWords)
     val expectedResult = Map(
       "this" -> 2,
       "is" -> 2,
@@ -32,6 +47,19 @@ class WordCounterTest extends AnyFunSuite {
       "test" -> 1,
       "another" -> 1,
       "sentence" ->1
+    )
+    assert(result == expectedResult)
+  }
+
+  test("count with cyrillic letters") {
+    val parsedWords: Seq[String] = List("это", "тест", "это", "ещё", "одно", "предложение")
+    val result = WordCounter.count(parsedWords)
+    val expectedResult = Map(
+      "это" -> 2,
+      "тест" -> 1,
+      "ещё" -> 1,
+      "одно" -> 1,
+      "предложение" -> 1
     )
     assert(result == expectedResult)
   }
