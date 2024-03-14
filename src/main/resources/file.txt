@@ -1,3 +1,2 @@
 This is a text file. This is another sentence.
-This is a new line.
-And this is another line!
+Это текстовый файл. Это второе предложение.
