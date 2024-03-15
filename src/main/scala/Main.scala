@@ -8,5 +8,5 @@ object Main extends App {
     result <- Try(WordCounter.count(parsedWords))
   } yield result
 
-  countedWords.fold(error => {println(error); sys.exit(1)}, result => println(result))
+  countedWords.fold(error => { println(error); sys.exit(1) }, result => println(result))
 }
