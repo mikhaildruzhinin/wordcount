@@ -5,7 +5,7 @@ import scala.util.Success
 
 class ReaderTest extends AnyFunSuite {
   test("read existing file") {
-    val inputFilePath: String = "src/main/resources/file.txt"
+    val inputFilePath: String = "src/test/resources/file.txt"
     val result = Reader(inputFilePath)
     val expectedResult = Success("This is a text file. This is another sentence. Это текстовый файл. Это второе предложение.")
     assert(result == expectedResult)
